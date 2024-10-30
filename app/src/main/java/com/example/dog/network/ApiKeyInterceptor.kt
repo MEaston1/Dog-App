@@ -8,7 +8,7 @@ class HeaderInterceptor @Inject constructor() : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request().newBuilder()
-        request.addHeader("x-api-key", "live_QRgtqyX7S5fd1d3JND27ibTsNFpvwYyu6o82YIWPqYIohrzTPXaAyS89raO88qFs")
+        request.addHeader("x-api-key", "live_S51JT7UdAEZTYZXwesxvzCbXhZCBj7HODuTycsOUY9kTPH3GeZfn6lraWKrH3xqR")
         return chain.proceed(request.build())
     }
 }

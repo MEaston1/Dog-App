@@ -26,7 +26,6 @@ fun BreedDetailScreen(
     breedId: String,
     viewModel: DogViewModel = hiltViewModel()
 ) {
-    Log.d("BreedDetailScreen", "breedId: $breedId")
     val breedDetails by viewModel.breedDetails.collectAsState()
     val breedImages by viewModel.breedImages.collectAsState()
     LaunchedEffect (breedId) {
