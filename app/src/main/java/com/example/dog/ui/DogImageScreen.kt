@@ -6,6 +6,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,8 +22,6 @@ import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import kotlinx.coroutines.launch
 
-// I added the androidx hiltViewModel import as I figure if I am going to annotate DogViewModel and several areas of the app with Hilt annotations I may as well utilise
-// it within my composable functions as well, hitViewModel cannot be imported through an annotation on composable functions.
 @Composable
 fun DogImageScreen(navController: NavHostController, viewModel: DogViewModel = hiltViewModel()) {
     val configuration = LocalConfiguration.current
@@ -52,7 +51,9 @@ fun DogImageScreen(navController: NavHostController, viewModel: DogViewModel = h
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Button(onClick = { navController.navigate("breed/${it.breeds?.firstOrNull()?.id}") }) {
-                        Text("Breed Details")
+                        Text("Breed Details",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface)
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
@@ -63,7 +64,10 @@ fun DogImageScreen(navController: NavHostController, viewModel: DogViewModel = h
                         },
                         modifier = Modifier.testTag("fetchDogButton")
                     ) {
-                        Text("Fetch Another Dog Image")
+                        Text("Fetch Another Dog Image",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
                     }
                 }
             }
@@ -85,7 +89,9 @@ fun DogImageScreen(navController: NavHostController, viewModel: DogViewModel = h
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = { navController.navigate("breed/${it.breeds?.firstOrNull()?.id}") }) {
-                    Text("Breed Details")
+                    Text("Breed Details",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface)
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -97,7 +103,9 @@ fun DogImageScreen(navController: NavHostController, viewModel: DogViewModel = h
                 },
                 modifier = Modifier.testTag("fetchDogButton")
             ) {
-                Text("Fetch Another Dog Image")
+                Text("Fetch Another Dog Image",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface)
             }
         }
     }

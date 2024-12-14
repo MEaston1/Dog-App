@@ -39,17 +39,20 @@ fun BreedDetailScreen(
         Text(
             text = breedDetails?.name ?: "Loading...",
             style = MaterialTheme.typography.titleMedium,
-            color = Color.White
+            color = MaterialTheme.colorScheme.primary
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = breedDetails?.description ?: "Loading...",
             style = MaterialTheme.typography.bodyMedium,
-            color = Color.White
+            color = MaterialTheme.colorScheme.primary
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = { viewModel.fetchBreedDetails(breedId) }) {
-            Text(text = "Refresh Images")
+            Text(text = "Refresh Images",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface
+            )
         }
         Spacer(modifier = Modifier.height(16.dp))
         LazyColumn {
