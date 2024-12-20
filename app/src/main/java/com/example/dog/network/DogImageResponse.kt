@@ -14,8 +14,18 @@ data class DogImageResponse(
 data class BreedResponse(
     val id: String,
     val name: String,
+    val breed_group: String?,
+    val bred_for: String?,
+    val life_span: String?,
     val temperament: String?,
-    val description: String?,
     @Json(name = "wikipedia_url") val wikipediaUrl: String?,
     @Json(name = "reference_image_id") val imageId: String?,
+    val weight: Measurement?,
+    val height: Measurement?
+)
+
+@JsonClass(generateAdapter = true)
+data class Measurement(
+    val imperial: String?,
+    val metric: String?
 )

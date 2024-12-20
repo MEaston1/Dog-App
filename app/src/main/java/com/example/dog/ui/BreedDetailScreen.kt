@@ -1,6 +1,5 @@
 package com.example.dog.ui
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,9 +13,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+//import androidx.compose.material3.carousel.HorizontalUncontainedCarousel
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 
@@ -42,8 +41,22 @@ fun BreedDetailScreen(
             color = MaterialTheme.colorScheme.primary
         )
         Spacer(modifier = Modifier.height(8.dp))
+        /*HorizontalMultiBrowseCarousel(
+            state = (breedImages ?: emptyList()),
+            modifier = Modifier.width(412.dp).height(221.dp),
+            itemWidth = 186.dp,
+            itemSpacing = 8.dp,
+            contentPadding = PaddingValues(horizontal = 16.dp),
+        ){
+
+        }*/
+
+        // Dog API resource provides: breed Name, Images, bred for, breed group, lifespan, temperament
+        // Features missing from DogAPI: description, wiki url,
         Text(
-            text = breedDetails?.description ?: "Loading...",
+            text = breedDetails?.let {
+                "${it.name} have an average lifespan of ${it.life_span} years. Their temperament can be:  ${it.temperament}"
+            } ?: "Info failed to load",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.primary
         )
