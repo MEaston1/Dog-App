@@ -1,13 +1,16 @@
 package com.example.dog.theme
 
+import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
     primary = primaryDark,
@@ -76,10 +79,23 @@ private val Typography = Typography(
     )
 )
 @Composable
-fun DogAppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colors = if (darkTheme) DarkColorScheme else LightColorScheme
+fun DogAppTheme(isDarkTheme: Boolean = isSystemInDarkTheme(),
+                isDynamicColor: Boolean = true,
+                content: @Composable () -> Unit
+) {
+    val dynamicColors = isDynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    val usedColorScheme = when {
+        dynamicColors && isDarkTheme -> {
+            dynamicDarkColorScheme(LocalContext.current)
+        }
+        dynamicColors && !isDarkTheme -> {
+            dynamicDarkColorScheme(LocalContext.current)
+        }
+        isDarkTheme -> DarkColorScheme
+        else -> LightColorScheme
+    }
     MaterialTheme(
-        colorScheme = colors,
+        colorScheme = usedColorScheme,
         typography = Typography,
         content = content
     )
