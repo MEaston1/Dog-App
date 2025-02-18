@@ -70,14 +70,6 @@ private val LightColorScheme = lightColorScheme(
     inversePrimary = inversePrimaryLight,
 )
 
-private val Typography = Typography(
-    bodyMedium = TextStyle(
-        fontSize = 16.sp
-    ),
-    titleMedium = TextStyle(
-        fontSize = 20.sp
-    )
-)
 @Composable
 fun DogAppTheme(isDarkTheme: Boolean = isSystemInDarkTheme(),
                 isDynamicColor: Boolean = true,
@@ -96,7 +88,8 @@ fun DogAppTheme(isDarkTheme: Boolean = isSystemInDarkTheme(),
     }
     MaterialTheme(
         colorScheme = usedColorScheme,
-        typography = Typography,
+        typography = petAppTypography,
+        shapes = petAppShapes,
         content = content
     )
 }

@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.Surface
 import androidx.navigation.compose.rememberNavController
 import com.example.dog.theme.DogAppTheme
-import com.example.dog.ui.NavGraph
+import com.example.dog.ui.nav.NavGraph
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

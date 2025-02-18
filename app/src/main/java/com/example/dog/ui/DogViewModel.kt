@@ -21,10 +21,8 @@ class DogViewModel @Inject constructor(
     val dogImage: StateFlow<DogImageResponse?> = _dogImage
 
     private val _breedDetails = MutableStateFlow<BreedResponse?>(null)
-    val breedDetails: StateFlow<BreedResponse?> = _breedDetails
 
     private val _breedImages = MutableStateFlow<List<DogImageResponse>?>(null)
-    val breedImages: StateFlow<List<DogImageResponse>?> = _breedImages
 
     private val error = DogImageResponse(emptyList(), "error", "android.resource://com.example.dog/drawable/errordog")
 
@@ -39,23 +37,4 @@ class DogViewModel @Inject constructor(
             }
         }
     }
-
-    fun fetchBreedDetails(breedId: String) {
-        viewModelScope.launch {
-            val breedDetailsResult = dogRepository.getBreedDetails(breedId)
-            if (breedDetailsResult is ApiResult.Success) {
-                _breedDetails.value = breedDetailsResult.data
-            } else if (breedDetailsResult is ApiResult.Error) {
-                ApiResult.Error(Exception("response was not successful - ${breedDetailsResult.exception}"))
-            }
-
-            val breedImagesResult = dogRepository.searchImages(4, breedId)
-            if (breedImagesResult is ApiResult.Success) {
-                _breedImages.value = breedImagesResult.data
-            } else if (breedImagesResult is ApiResult.Error) {
-                ApiResult.Error(Exception("response was not successful - ${breedImagesResult.exception}"))
-            }
-        }
-    }
-
 }
