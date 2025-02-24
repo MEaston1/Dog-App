@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 fun FavouriteFAB(onClick: () -> Unit) {
     FloatingActionButton(
         onClick = onClick,
-        contentColor = MaterialTheme.colorScheme.onPrimary
+        containerColor = MaterialTheme.colorScheme.primaryContainer
     ) {
         Icon(
             imageVector = Icons.Filled.Favorite,
