@@ -2,4 +2,6 @@
     <string name="app_name">Dog App</string>
     <string name="fetch_pet">Fetch Another Dog Image</string>
     <string name="pet_details">Breed Details</string>
+    <string name="dog_tab">Dogs</string>
+    <string name="cat_tab">Cats</string>
 </resources>
