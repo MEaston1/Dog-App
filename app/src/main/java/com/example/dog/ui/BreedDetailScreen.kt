@@ -15,7 +15,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.dog.R
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.dog.ui.components.FavouriteFAB
@@ -43,7 +45,7 @@ fun BreedDetailScreen(
             verticalArrangement = Arrangement.Top
         ) {
             Text(
-                text = breedDetails?.name ?: "Loading...",
+                text = breedDetails?.name ?: stringResource(id = R.string.loading),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.primary
             )
@@ -62,14 +64,19 @@ fun BreedDetailScreen(
             // Features missing from DogAPI: description, wiki url,
             Text(
                 text = breedDetails?.let {
-                    "${it.name} have an average lifespan of ${it.life_span} years. Their temperament can be:  ${it.temperament}"
-                } ?: "Info failed to load",
+                    stringResource(
+                        id = R.string.breed_details_format,
+                        it.name,
+                        it.life_span!!,
+                        it.temperament!!
+                    )
+                } ?: stringResource(id = R.string.info_failed_to_load),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.height(16.dp))
             Button(onClick = { viewModel.fetchBreedDetails(breedId) }) {
-                Text(text = "Refresh Images",
+                Text(stringResource(id = R.string.refresh),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface
                 )
