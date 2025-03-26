@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -28,6 +29,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.dog.ui.components.FavouriteFAB
@@ -36,17 +38,24 @@ import com.example.dog.R
 import com.example.dog.ui.components.AnimalTabs
 
 @Composable
-fun DogImageScreen(navController: NavHostController, viewModel: DogViewModel = hiltViewModel()) {
+fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel = hiltViewModel()) {
+    val sharedPetViewModel: SharedPetViewModel = viewModel()
     val configuration = LocalConfiguration.current
     val orientation = configuration.orientation
-    val dogImage = viewModel.dogImage.collectAsState().value
+    val dogImage = dogViewModel.dogImage.collectAsState().value
     val coroutineScope = rememberCoroutineScope()
     val hasInitialFetch = remember { mutableStateOf(false) }
-    val selectedTabIndex = remember { mutableStateOf(0) }
-    LaunchedEffect(viewModel) {
+    val selectedTabIndex = remember { mutableIntStateOf(0) }
+    LaunchedEffect(dogImage) {
+        dogImage?.breeds?.firstOrNull()?.id?.let { breedId->
+            sharedPetViewModel.updateCurrentBreedId(breedId)
+        }
+    }
+
+    LaunchedEffect(dogViewModel) {
         if (!hasInitialFetch.value) {
             Log.d("fetching initial dog image", hasInitialFetch.value.toString())
-            viewModel.fetchRandomDogImage()
+            dogViewModel.fetchRandomDogImage()
             hasInitialFetch.value = true
         }
     }
@@ -99,7 +108,9 @@ fun DogImageScreen(navController: NavHostController, viewModel: DogViewModel = h
                                         .size(250.dp, 50.dp),
                                     shape = MaterialTheme.shapes.small,
                                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-                                    onClick = { navController.navigate("breed/${it.breeds?.firstOrNull()?.id}") }) {
+                                    onClick = {
+                                        navController.navigate("breed/${it.breeds?.firstOrNull()?.id}") }) {
+
                                     Text(
                                         text = stringResource(id = R.string.pet_details),
                                         style = MaterialTheme.typography.bodyMedium,
@@ -112,7 +123,7 @@ fun DogImageScreen(navController: NavHostController, viewModel: DogViewModel = h
                                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
                                     onClick = {
                                         coroutineScope.launch {
-                                            viewModel.fetchRandomDogImage()
+                                            dogViewModel.fetchRandomDogImage()
                                         }
                                     },
                                     modifier = Modifier
@@ -183,7 +194,7 @@ fun DogImageScreen(navController: NavHostController, viewModel: DogViewModel = h
                                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
                                     onClick = {
                                         coroutineScope.launch {
-                                            viewModel.fetchRandomDogImage()
+                                            dogViewModel.fetchRandomDogImage()
                                         }
                                     },
                                     modifier = Modifier

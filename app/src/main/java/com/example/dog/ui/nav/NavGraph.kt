@@ -2,8 +2,10 @@ package com.example.dog.ui.nav
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.dog.ui.BreedDetailScreen
 import com.example.dog.ui.DogImageScreen
 
@@ -13,9 +15,15 @@ fun NavGraph(navController: NavHostController) {
         composable("home") {
             DogImageScreen(navController = navController)
         }
-        composable("breed/{id}") { backStackEntry ->
-            val id = backStackEntry.arguments?.getString("id")
-            BreedDetailScreen(breedId = id!!)
+        composable("favourites") {
+            //FavouritesScreen(navController = navController)
+        }
+        composable(
+            route = "breed/{breedId}",
+            arguments = listOf(navArgument("breedId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val breedId = backStackEntry.arguments?.getString("breedId") ?: ""
+            BreedDetailScreen(breedId = breedId)
         }
     }
 }
