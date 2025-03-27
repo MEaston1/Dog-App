@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.dog.ui.BreedDetailScreen
 import com.example.dog.ui.DogImageScreen
+import com.example.dog.ui.SharedPetViewModel
 
 @Composable
 fun NavGraph(navController: NavHostController) {

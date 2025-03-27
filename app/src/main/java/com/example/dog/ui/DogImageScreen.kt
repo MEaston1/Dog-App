@@ -2,6 +2,7 @@ package com.example.dog.ui
 
 import android.content.res.Configuration
 import android.util.Log
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.foundation.Image
@@ -25,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -39,8 +41,10 @@ import com.example.dog.ui.components.AnimalTabs
 
 @Composable
 fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel = hiltViewModel()) {
-    val sharedPetViewModel: SharedPetViewModel = viewModel()
     val configuration = LocalConfiguration.current
+    val sharedPetViewModel: SharedPetViewModel = viewModel(
+        viewModelStoreOwner = LocalContext.current as ComponentActivity
+    )
     val orientation = configuration.orientation
     val dogImage = dogViewModel.dogImage.collectAsState().value
     val coroutineScope = rememberCoroutineScope()
@@ -49,7 +53,9 @@ fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel 
     LaunchedEffect(dogImage) {
         dogImage?.breeds?.firstOrNull()?.id?.let { breedId->
             sharedPetViewModel.updateCurrentBreedId(breedId)
+            Log.d("dogImage", "Breed ID is: $breedId")
         }
+        Log.d("dogImage", "Dog image changed: "+ dogImage.toString())
     }
 
     LaunchedEffect(dogViewModel) {
@@ -57,6 +63,7 @@ fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel 
             Log.d("fetching initial dog image", hasInitialFetch.value.toString())
             dogViewModel.fetchRandomDogImage()
             hasInitialFetch.value = true
+            Log.d("fetched initial dogImage", hasInitialFetch.value.toString())
         }
     }
 
@@ -109,8 +116,8 @@ fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel 
                                     shape = MaterialTheme.shapes.small,
                                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                                     onClick = {
+                                        Log.d("breedId", it.breeds?.firstOrNull()?.id.toString())
                                         navController.navigate("breed/${it.breeds?.firstOrNull()?.id}") }) {
-
                                     Text(
                                         text = stringResource(id = R.string.pet_details),
                                         style = MaterialTheme.typography.bodyMedium,
