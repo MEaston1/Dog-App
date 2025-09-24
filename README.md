@@ -1,6 +1,6 @@
 # The dog app 📱
 
-Welcome to the Dog app! 👋 My app I have created to view dog breeds and help you find your new best friend! 🐶
+Welcome to the Dog app! 👋 My app I have created to view dog breeds to find your favourite! 🐶
 
 ## Where do I find these dogs you speak of? 🎬
 
