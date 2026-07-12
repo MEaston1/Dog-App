@@ -1,9 +1,16 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.android.kotlin)
     alias(libs.plugins.android.hilt)
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+}
+
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) file.inputStream().use { load(it) }
 }
 
 android {
@@ -17,6 +24,11 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField(
+            "String",
+            "DOG_API_KEY",
+            "\"${localProperties.getProperty("DOG_API_KEY") ?: ""}\"",
+        )
     }
 
     buildFeatures {
@@ -32,6 +44,7 @@ android {
     buildTypes {
         named("release") {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
