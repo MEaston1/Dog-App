@@ -2,23 +2,19 @@ package com.example.dog
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.dog.theme.DogAppTheme
-import com.example.dog.ui.SharedPetViewModel
 import com.example.dog.ui.components.BottomNavigation
 import com.example.dog.ui.nav.NavGraph
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.ComponentActivity
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

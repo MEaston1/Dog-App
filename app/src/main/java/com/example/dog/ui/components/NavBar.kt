@@ -1,6 +1,5 @@
 package com.example.dog.ui.components
 
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
