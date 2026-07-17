@@ -39,7 +39,6 @@ navigation-compose = { group = "androidx.navigation", name = "navigation-compose
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
 lifecycle-common-java8 = { group = "androidx.lifecycle", name = "lifecycle-common-java8", version.ref = "lifecycle" }
-lifecycle-extensions = { group = "androidx.lifecycle", name = "lifecycle-extensions", version.ref = "lifecycleExtension" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil-core" }
 coil-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil-svg" }
@@ -50,8 +49,6 @@ okHttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHtt
 okHttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttp-logging" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit-core" }
 retrofit-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit-core" }
-retrofit-scalars = { group = "com.squareup.retrofit2", name = "converter-scalars", version.ref = "retrofit-core" }
-okHttp-tls = { group = "com.squareup.okhttp3", name = "okhttp-tls", version.ref = "okHttp-core" }
 moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", version.ref = "moshi" }
 moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
 junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
@@ -107,18 +104,15 @@ compose-ui = [
     "androidx-hilt-navigation-compose",
 ]
 ui = [
-    "andoidx-core", "androidx-core-ktx", "coroutines", "appcompat", "cardview", "recyclerView",
-    "material", "constraintlayout", "preference", "navigation-fragment-ktx", "navigation-ui-ktx",
-    "swiperefreshlayout"
+    "andoidx-core", "androidx-core-ktx", "coroutines", "material", "navigation-compose",
 ]
 lifecycle = [
     "lifecycle-viewmodel-ktx", "lifecycle-livedata-ktx", "lifecycle-common-java8",
-    "lifecycle-extensions", "lifecycle-runtime-ktx"
+    "lifecycle-runtime-ktx"
 ]
 remoteImages = ["coil", "coil-svg", "coil-compose"]
 network = [
-    "okHttp", "okHttp-logging", "retrofit", "retrofit-moshi", "retrofit-scalars", "okHttp-tls",
-    "moshi-adapters"
+    "okHttp", "okHttp-logging", "retrofit", "retrofit-moshi", "moshi-adapters"
 ]
 test = [
     "junit-jupiter-api", "junit-jupiter-params", "mockito-core", "mockito-inline", "mockito-kotlin",

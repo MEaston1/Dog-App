@@ -12,7 +12,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -56,7 +55,6 @@ class NetworkModule {
         return Retrofit.Builder()
             .client(okHttpClient.get())
             .baseUrl("https://api.thedogapi.com/v1/")
-            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(TheDogApi::class.java)
