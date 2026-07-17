@@ -12,6 +12,10 @@ import com.example.dog.ui.components.BottomNavigation
 import com.example.dog.ui.nav.NavGraph
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.dog.ui.SharedPetViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -20,16 +24,19 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             DogAppTheme {
+                val sharedPetViewModel: SharedPetViewModel = viewModel()
+                val currentBreedId by sharedPetViewModel.currentBreedId.collectAsState()
                 val navController = rememberNavController()
                 Scaffold(
                     bottomBar = {
-                        BottomNavigation(navController = navController)
+                        BottomNavigation(navController = navController, currentBreedId = currentBreedId)
                     }
                 ) {
                     paddingValues ->
                     Surface (modifier = Modifier.padding(paddingValues))
                     {
-                        NavGraph(navController = navController)
+                        NavGraph(navController = navController,
+                            onBreedViewed = sharedPetViewModel::updateCurrentBreedId)
                     }
                 }
             }

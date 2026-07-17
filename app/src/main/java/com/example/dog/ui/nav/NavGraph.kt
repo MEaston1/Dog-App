@@ -10,10 +10,10 @@ import com.example.dog.ui.breeddetail.BreedDetailScreen
 import com.example.dog.ui.dogImage.DogImageScreen
 
 @Composable
-fun NavGraph(navController: NavHostController) {
+fun NavGraph(navController: NavHostController, onBreedViewed: (String?) -> Unit) {
     NavHost(navController, startDestination = "home") {
         composable("Home") {
-            DogImageScreen(navController = navController)
+            DogImageScreen(navController = navController, onBreedViewed = onBreedViewed)
         }
         composable("Favourites") {
             //FavouritesScreen(navController = navController)

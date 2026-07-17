@@ -2,7 +2,6 @@ package com.example.dog.ui.dogImage
 
 import android.content.res.Configuration
 import android.util.Log
-import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.foundation.Image
@@ -26,27 +25,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.dog.ui.components.FavouriteFAB
 import kotlinx.coroutines.launch
 import com.example.dog.R
 import com.example.dog.ui.DogViewModel
-import com.example.dog.ui.SharedPetViewModel
 import com.example.dog.ui.components.AnimalTabs
 
 @Composable
-fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel = hiltViewModel()) {
+fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel = hiltViewModel(), onBreedViewed: (String?) -> Unit) {
     val configuration = LocalConfiguration.current
-    val sharedPetViewModel: SharedPetViewModel = viewModel(
-        viewModelStoreOwner = LocalContext.current as ComponentActivity
-    )
     val orientation = configuration.orientation
     val dogImage = dogViewModel.dogImage.collectAsState().value
     val coroutineScope = rememberCoroutineScope()
@@ -54,7 +47,7 @@ fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel 
     val selectedTabIndex = remember { mutableIntStateOf(0) }
     LaunchedEffect(dogImage) {
         dogImage?.breeds?.firstOrNull()?.id?.let { breedId->
-            sharedPetViewModel.updateCurrentBreedId(breedId)
+            onBreedViewed(breedId)
             Log.d("dogImage", "Breed ID is: $breedId")
         }
     }
