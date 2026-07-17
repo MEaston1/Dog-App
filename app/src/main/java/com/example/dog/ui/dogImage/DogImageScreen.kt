@@ -57,15 +57,12 @@ fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel 
             sharedPetViewModel.updateCurrentBreedId(breedId)
             Log.d("dogImage", "Breed ID is: $breedId")
         }
-        Log.d("dogImage", "Dog image changed: "+ dogImage.toString())
     }
 
     LaunchedEffect(dogViewModel) {
         if (!hasInitialFetch.value) {
-            Log.d("fetching initial dog image", hasInitialFetch.value.toString())
             dogViewModel.fetchRandomDogImage()
             hasInitialFetch.value = true
-            Log.d("fetched initial dogImage", hasInitialFetch.value.toString())
         }
     }
 
@@ -118,7 +115,6 @@ fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel 
                                     shape = MaterialTheme.shapes.small,
                                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                                     onClick = {
-                                        Log.d("breedId", it.breeds?.firstOrNull()?.id.toString())
                                         navController.navigate("breed/${it.breeds?.firstOrNull()?.id}") }) {
                                     Text(
                                         text = stringResource(id = R.string.pet_details),

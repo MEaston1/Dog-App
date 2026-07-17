@@ -20,10 +20,6 @@ class DogViewModel @Inject constructor(
     private val _dogImage = MutableStateFlow<DogImageResponse?>(null)
     val dogImage: StateFlow<DogImageResponse?> = _dogImage
 
-    private val _breedDetails = MutableStateFlow<BreedResponse?>(null)
-
-    private val _breedImages = MutableStateFlow<List<DogImageResponse>?>(null)
-
     private val error = DogImageResponse(emptyList(), "error", "android.resource://com.example.dog/drawable/errordog")
 
     fun fetchRandomDogImage() {

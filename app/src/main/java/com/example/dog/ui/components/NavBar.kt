@@ -48,7 +48,6 @@ fun BottomNavigation(navController: NavHostController) {
                 onClick = {
                     if(item == AppDestination.BreedDetail) {
                         coroutineScope.launch {
-                            Log.d("BottomNavigation", "BreedId at click: $currentBreedId")
                             if(currentBreedId != null){
                                 navController.navigate("breed/$currentBreedId") {
                                     popUpTo(navController.graph.startDestinationId) {
@@ -59,7 +58,6 @@ fun BottomNavigation(navController: NavHostController) {
                                 }
                             } else {
                                 // Optional: Handle case when no breed is selected
-                                Log.d("BottomNavigation", "No breed selected yet")
                             }
                         }
                     } else {
