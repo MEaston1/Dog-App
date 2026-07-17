@@ -8,6 +8,7 @@
     <string name="loading">Loading...</string>
     <string name="refresh">Refresh Images</string>
     <string name="info_failed_to_load">Info failed to load</string>
+    <string name="unknown">varied</string>
     <string name="breed_details_format">%1$s have an average lifespan of %2$s years. Their temperament can be: %3$s</string>
     <string name="home_tab">Home</string>
     <string name="details_tab">Details</string>

@@ -2,6 +2,7 @@ package com.example.dog.network
 
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TheDogApi {
@@ -13,5 +14,10 @@ interface TheDogApi {
     ): Response<List<DogImageResponse>>
 
     @GET("images/search")
-    suspend fun getRandomImage(): Response<List<DogImageResponse>>
+    suspend fun getRandomImage(
+        @Query("has_breeds") hasBreeds: Boolean = true
+    ): Response<List<DogImageResponse>>
+
+    @GET("breeds/{breed_id}")
+    suspend fun getBreed(@Path("breed_id") breedId: String): Response<BreedResponse>
 }

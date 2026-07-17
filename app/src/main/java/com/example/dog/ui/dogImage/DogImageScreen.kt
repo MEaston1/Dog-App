@@ -1,4 +1,4 @@
-package com.example.dog.ui
+package com.example.dog.ui.dogImage
 
 import android.content.res.Configuration
 import android.util.Log
@@ -37,6 +37,8 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.dog.ui.components.FavouriteFAB
 import kotlinx.coroutines.launch
 import com.example.dog.R
+import com.example.dog.ui.DogViewModel
+import com.example.dog.ui.SharedPetViewModel
 import com.example.dog.ui.components.AnimalTabs
 
 @Composable

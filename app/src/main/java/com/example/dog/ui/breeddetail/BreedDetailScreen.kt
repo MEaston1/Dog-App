@@ -1,4 +1,4 @@
-package com.example.dog.ui
+package com.example.dog.ui.breeddetail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -67,8 +67,8 @@ fun BreedDetailScreen(
                     stringResource(
                         id = R.string.breed_details_format,
                         it.name,
-                        it.life_span!!,
-                        it.temperament!!
+                        it.life_span ?: R.string.unknown,
+                        it.temperament?: R.string.unknown
                     )
                 } ?: stringResource(id = R.string.info_failed_to_load),
                 style = MaterialTheme.typography.bodyMedium,

@@ -8,7 +8,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.navigation.compose.rememberNavController
 import androidx.fragment.app.Fragment
-import com.example.dog.ui.DogImageScreen
+import com.example.dog.ui.dogImage.DogImageScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

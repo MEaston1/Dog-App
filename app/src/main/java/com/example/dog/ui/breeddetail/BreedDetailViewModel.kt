@@ -1,4 +1,4 @@
-package com.example.dog.ui
+package com.example.dog.ui.breeddetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
