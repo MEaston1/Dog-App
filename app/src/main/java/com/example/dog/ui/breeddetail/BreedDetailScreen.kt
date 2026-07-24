@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -27,9 +28,8 @@ fun BreedDetailScreen(
     breedId: String,
 ) {
     val viewModel: BreedDetailViewModel = hiltViewModel()
-    val breedDetails by viewModel.breedDetails.collectAsState()
-    val breedImages by viewModel.breedImages.collectAsState()
-    LaunchedEffect (breedId) {
+    val uiState by viewModel.uiState.collectAsState()
+    LaunchedEffect(breedId) {
         viewModel.fetchBreedDetails(breedId)
     }
 
@@ -37,62 +37,81 @@ fun BreedDetailScreen(
         floatingActionButton = {
             FavouriteFAB(onClick = {})
         })
-    {paddingValues ->
-        Column( modifier = Modifier
+    { paddingValues ->
+        Column(
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            Text(
-                text = breedDetails?.name ?: stringResource(id = R.string.loading),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            /*HorizontalMultiBrowseCarousel(
-                state = (breedImages ?: emptyList()),
-                modifier = Modifier.width(412.dp).height(221.dp),
-                itemWidth = 186.dp,
-                itemSpacing = 8.dp,
-                contentPadding = PaddingValues(horizontal = 16.dp),
-            ){
-
-            }*/
-
-            // Dog API resource provides: breed Name, Images, bred for, breed group, lifespan, temperament
-            // Features missing from DogAPI: description, wiki url,
-            Text(
-                text = breedDetails?.let {
-                    stringResource(
-                        id = R.string.breed_details_format,
-                        it.name,
-                        it.life_span ?: R.string.unknown,
-                        it.temperament?: R.string.unknown
+            when (val state = uiState) {
+                BreedDetailUiState.Loading -> {
+                    Text(
+                        text = stringResource(id = R.string.loading),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.primary
                     )
-                } ?: stringResource(id = R.string.info_failed_to_load),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { viewModel.fetchBreedDetails(breedId) }) {
-                Text(stringResource(id = R.string.refresh),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-            LazyColumn {
-                items(breedImages ?: emptyList()) { image ->
-                    Image(
-                        painter = rememberAsyncImagePainter(image.url),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp)
-                            .padding(8.dp),
-                        contentScale = ContentScale.Fit
+                    Spacer(modifier = Modifier.height(16.dp))
+                    CircularProgressIndicator()
+                }
+
+                BreedDetailUiState.Error -> {
+                    Text(
+                        text = stringResource(id = R.string.info_failed_to_load),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.primary
                     )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Button(onClick = { viewModel.fetchBreedDetails(breedId) }) {
+                        Text(
+                            stringResource(id = R.string.refresh),
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                }
+
+                is BreedDetailUiState.Success -> {
+                    val breed = state.breed
+                    Text(
+                        text = breed.name,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = stringResource(
+                            id = R.string.breed_details_format,
+                            breed.name,
+                            breed.lifeSpan,
+                            breed.temperament
+                        ),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Button(onClick = { viewModel.fetchBreedDetails(breedId) }) {
+                        Text(
+                            stringResource(id = R.string.refresh),
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(16.dp))
+                    LazyColumn {
+                        items(state.images) { image ->
+                            Image(
+                                painter = rememberAsyncImagePainter(image.url),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(200.dp)
+                                    .padding(8.dp),
+                                contentScale = ContentScale.Fit
+                            )
+                        }
+                    }
                 }
             }
         }

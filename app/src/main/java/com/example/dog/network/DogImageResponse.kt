@@ -1,5 +1,7 @@
 package com.example.dog.network
 
+import com.example.dog.domain.Breed
+import com.example.dog.domain.DogImage
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -29,3 +31,27 @@ data class Measurement(
     val imperial: String?,
     val metric: String?
 )
+
+fun Measurement?.toDomain() = com.example.dog.domain.Measurement(
+    imperial = this?.imperial.orEmpty(),
+    metric = this?.metric.orEmpty(),
+)
+
+fun BreedResponse.toDomain() = Breed(
+    id = id,
+    name = name,
+    breedGroup = breed_group.orEmpty(),
+    bredFor = bred_for.orEmpty(),
+    lifeSpan = life_span ?: "Unknown",
+    temperament = temperament.orEmpty(),
+    wikipediaUrl = wikipediaUrl.orEmpty(),
+    referenceImageId = imageId.orEmpty(),
+    weight = weight.toDomain(),
+    height = height.toDomain(),
+)
+
+fun DogImageResponse.toDomain() = DogImage(
+    breeds = breeds?.map{ it.toDomain()}.orEmpty(),
+    id = id,
+    url = url
+    )
