@@ -18,7 +18,7 @@ android {
     buildToolsVersion = "32.1.0-rc1"
 
     defaultConfig {
-        applicationId = "com.example.dog"
+        applicationId = "com.measton.dogapp"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -65,7 +65,7 @@ android {
             unitTest.useJUnitPlatform()  // explicitly use JUnit 5
         }
     }
-    namespace = "com.example.dog"
+    namespace = "com.measton.dogapp"
 }
 
 dependencies {

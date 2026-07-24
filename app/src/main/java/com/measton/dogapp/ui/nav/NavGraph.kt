@@ -1,0 +1,29 @@
+package com.measton.dogapp.ui.nav
+
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.measton.dogapp.ui.breeddetail.BreedDetailScreen
+import com.measton.dogapp.ui.dogImage.DogImageScreen
+
+@Composable
+fun NavGraph(navController: NavHostController, onBreedViewed: (String?) -> Unit) {
+    NavHost(navController, startDestination = "home") {
+        composable("Home") {
+            DogImageScreen(navController = navController, onBreedViewed = onBreedViewed)
+        }
+        composable("Favourites") {
+            //FavouritesScreen(navController = navController)
+        }
+        composable(
+            route = "Breed/{breedId}",
+            arguments = listOf(navArgument("breedId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val breedId = backStackEntry.arguments?.getString("breedId") ?: ""
+            BreedDetailScreen(breedId = breedId)
+        }
+    }
+}
