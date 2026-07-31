@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.android.kotlin)
     alias(libs.plugins.android.hilt)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
 }
@@ -14,13 +16,12 @@ val localProperties = Properties().apply {
 }
 
 android {
-    compileSdk = 34
-    buildToolsVersion = "32.1.0-rc1"
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.measton.dogapp"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -36,9 +37,6 @@ android {
         buildConfig = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.10"
-    }
 
     buildTypes {
         named("release") {
@@ -52,12 +50,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    kotlinOptions {
-        jvmTarget = "11"
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     testOptions {
@@ -66,6 +60,10 @@ android {
         }
     }
     namespace = "com.measton.dogapp"
+}
+
+kotlin {
+    jvmToolchain(17)
 }
 
 dependencies {
@@ -77,7 +75,7 @@ dependencies {
     testImplementation(libs.androidx.junit)
     kapt(libs.dagger.hilt.compiler)
     implementation(libs.bundles.network)
-    kapt(libs.moshi.kotlin.codegen)
+    ksp(libs.moshi.kotlin.codegen)
     testImplementation(libs.bundles.test)
     testRuntimeOnly(libs.junit.jupiter.engine)
     androidTestImplementation(libs.bundles.androidTest)
