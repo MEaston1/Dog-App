@@ -30,7 +30,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil3.compose.rememberAsyncImagePainter
 import com.measton.dogapp.ui.components.FavouriteFAB
@@ -39,9 +38,10 @@ import com.measton.dogapp.R
 import com.measton.dogapp.ui.DogImageUiState
 import com.measton.dogapp.ui.DogViewModel
 import com.measton.dogapp.ui.components.AnimalTabs
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel = hiltViewModel(), onBreedViewed: (String?) -> Unit) {
+fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel = koinViewModel(), onBreedViewed: (String?) -> Unit) {
     val configuration = LocalConfiguration.current
     val orientation = configuration.orientation
     val uiState = dogViewModel.uiState.collectAsState().value

@@ -10,21 +10,19 @@ import androidx.navigation.compose.rememberNavController
 import com.measton.dogapp.theme.DogAppTheme
 import com.measton.dogapp.ui.components.BottomNavigation
 import com.measton.dogapp.ui.nav.NavGraph
-import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.measton.dogapp.ui.SharedPetViewModel
+import org.koin.androidx.compose.koinViewModel
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             DogAppTheme {
-                val sharedPetViewModel: SharedPetViewModel = viewModel()
+                val sharedPetViewModel: SharedPetViewModel = koinViewModel()
                 val currentBreedId by sharedPetViewModel.currentBreedId.collectAsState()
                 val navController = rememberNavController()
                 Scaffold(

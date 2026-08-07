@@ -18,16 +18,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.rememberAsyncImagePainter
 import com.measton.dogapp.R
 import com.measton.dogapp.ui.components.FavouriteFAB
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun BreedDetailScreen(
-    breedId: String,
+    breedId: String, viewModel: BreedDetailViewModel = koinViewModel()
 ) {
-    val viewModel: BreedDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
     LaunchedEffect(breedId) {
         viewModel.fetchBreedDetails(breedId)

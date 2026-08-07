@@ -5,9 +5,8 @@ import com.measton.dogapp.domain.Breed
 import com.measton.dogapp.domain.DogImage
 import com.measton.dogapp.network.toDomain
 
-import javax.inject.Inject
 
-class HomeRepository @Inject constructor(
+class HomeRepository (
     private val api: TheDogApi
 ) {
     suspend fun searchImages(limit: Int, breedId: String): ApiResult<List<DogImage>> {

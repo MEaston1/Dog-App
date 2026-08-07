@@ -4,11 +4,13 @@ androidXCore = "1.19.0"
 navigation = "2.9.8"
 lifecycle = "2.11.0"
 material = "1.14.0"
-dagger = "2.60.1"
 retrofit-core = "3.0.0"
 okHttp-core = "5.4.0"
 okHttp-logging = "5.4.0"
 moshi = "1.15.2"
+ktor = "3.5.2"
+kotlinxSerialization = "1.11.0"
+koin-android = "4.2.2"
 coil-core = "3.5.0"
 coil-svg = "3.5.0"
 espresso = "3.7.0"
@@ -25,14 +27,10 @@ composeLifecycle = "2.11.0"
 constraintlayoutCompose = "1.1.2"
 androidGradlePlugin = "9.2.1"
 kotlin = "2.4.10"
-androidxHilt = "1.4.0"
-junitVersion = "1.3.0"
-uiTestJunit4Android = "1.11.4"
 
 [libraries]
 andoidx-core = { group = "androidx.core", name = "core", version.ref = "androidXCore" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidXCore" }
-androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHilt" }
 coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
@@ -44,14 +42,22 @@ coil = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil-core" }
 coil-svg = { group = "io.coil-kt.coil3", name = "coil-svg", version.ref = "coil-svg" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil-core" }
 coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil-core" }
-dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger" }
-dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "dagger" }
 okHttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHttp-core" }
 okHttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttp-logging" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit-core" }
 retrofit-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit-core" }
 moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", version.ref = "moshi" }
 moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
+koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin-android"}
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin-android"}
+koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin-android" }
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
 junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit" }
 mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
@@ -69,8 +75,6 @@ espresso-intents = { group = "androidx.test.espresso", name = "espresso-intents"
 mockito-android = { group = "org.mockito", name = "mockito-android", version.ref = "mockito" }
 test-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "support_runner" }
 junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junit_ktx" }
-dagger-hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "dagger" }
-dagger-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "dagger" }
 mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "okHttp-core" }
 okhttp3-idling-resource = { group = "com.jakewharton.espresso", name = "okhttp3-idling-resource", version = "1.0.0" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose_bom" }
@@ -88,8 +92,6 @@ compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 compose-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
 
 [bundles]
 compose-ui = [
@@ -104,7 +106,6 @@ compose-ui = [
     "compose-lifecycle-viewmodel",
     "compose-lifecycle-runtime",
     "compose-ui-tooling-preview",
-    "androidx-hilt-navigation-compose",
 ]
 ui = [
     "andoidx-core", "androidx-core-ktx", "coroutines", "material", "navigation-compose",
@@ -117,6 +118,10 @@ remoteImages = ["coil", "coil-svg", "coil-compose", "coil-network-okhttp"]
 network = [
     "okHttp", "okHttp-logging", "retrofit", "retrofit-moshi", "moshi-adapters"
 ]
+ktor = [
+    "ktor-client-core", "ktor-client-okhttp", "ktor-client-content-negotiation",
+    "ktor-client-logging", "ktor-serialization-kotlinx-json", "kotlinx-serialization-json"
+]
 test = [
     "junit-jupiter-api", "junit-jupiter-params", "mockito-core", "mockito-inline", "mockito-kotlin",
     "truth", "coroutines-test"
@@ -124,11 +129,11 @@ test = [
 androidTest = [
     "test-runner", "test-rules", "espresso-core", "espresso-web", "espresso-contrib",
     "espresso-intents", "mockito-android", "test-core-ktx", "junit-ktx",
-    "dagger-hilt-android-testing", "truth", "mockwebserver", "okhttp3-idling-resource"
+    "truth", "mockwebserver", "okhttp3-idling-resource"
 ]
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-android-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version = "2.3.10" }

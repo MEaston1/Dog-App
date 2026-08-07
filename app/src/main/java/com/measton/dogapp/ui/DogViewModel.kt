@@ -5,15 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.measton.dogapp.ApiResult
 import com.measton.dogapp.HomeRepository
 import com.measton.dogapp.domain.DogImage
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class DogViewModel @Inject constructor(
+class DogViewModel (
     private val dogRepository: HomeRepository
 ) : ViewModel() {
 

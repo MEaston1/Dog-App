@@ -3,11 +3,8 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.android.kotlin)
-    alias(libs.plugins.android.hilt)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
 }
 
 val localProperties = Properties().apply {
@@ -70,17 +67,14 @@ dependencies {
     implementation(libs.bundles.ui)
     implementation(libs.bundles.lifecycle)
     implementation(libs.bundles.remoteImages)
-    implementation(libs.dagger.hilt)
-    implementation(libs.androidx.ui.test.junit4.android)
-    testImplementation(libs.androidx.junit)
-    kapt(libs.dagger.hilt.compiler)
     implementation(libs.bundles.network)
     ksp(libs.moshi.kotlin.codegen)
     testImplementation(libs.bundles.test)
     testRuntimeOnly(libs.junit.jupiter.engine)
     androidTestImplementation(libs.bundles.androidTest)
-    kaptAndroidTest(libs.dagger.hilt.android.compiler)
-
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+    testImplementation(libs.koin.test)
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose.ui)
     debugImplementation(libs.compose.ui.tooling)
