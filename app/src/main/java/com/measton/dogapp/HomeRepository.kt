@@ -1,6 +1,5 @@
 package com.measton.dogapp
 
-import com.measton.dogapp.network.TheDogApi
 import com.measton.dogapp.domain.Breed
 import com.measton.dogapp.domain.DogImage
 import com.measton.dogapp.network.toDomain

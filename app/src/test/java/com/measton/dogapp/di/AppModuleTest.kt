@@ -1,7 +1,6 @@
 package com.measton.dogapp.di
 
 import com.measton.dogapp.HomeRepository
-import com.measton.dogapp.network.TheDogApi
 import com.measton.dogapp.network.networkModule
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertNotNull

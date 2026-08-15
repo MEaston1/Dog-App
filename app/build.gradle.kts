@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.android.kotlin)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 val localProperties = Properties().apply {
@@ -68,9 +68,10 @@ dependencies {
     implementation(libs.bundles.lifecycle)
     implementation(libs.bundles.remoteImages)
     implementation(libs.bundles.network)
-    ksp(libs.moshi.kotlin.codegen)
     testImplementation(libs.bundles.test)
+    implementation(libs.bundles.ktor)
     testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
     androidTestImplementation(libs.bundles.androidTest)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
@@ -80,4 +81,5 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.manifest)
     androidTestImplementation(libs.compose.junit4)
+    testImplementation(libs.ktor.client.mock)
 }

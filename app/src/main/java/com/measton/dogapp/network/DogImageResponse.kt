@@ -2,34 +2,34 @@ package com.measton.dogapp.network
 
 import com.measton.dogapp.domain.Breed
 import com.measton.dogapp.domain.DogImage
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class DogImageResponse(
-    val breeds: List<BreedResponse>?,
+    val breeds: List<BreedResponse>? = null,
     val id: String,
     val url: String
 )
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class BreedResponse(
     val id: String,
     val name: String,
-    val breed_group: String?,
-    val bred_for: String?,
-    val life_span: String?,
-    val temperament: String?,
-    @Json(name = "wikipedia_url") val wikipediaUrl: String?,
-    @Json(name = "reference_image_id") val imageId: String?,
-    val weight: Measurement?,
-    val height: Measurement?
+    @SerialName("breed_group") val breedGroup: String? = null,
+    @SerialName("bred_for") val bredFor: String? = null,
+    @SerialName("life_span") val lifeSpan: String? = null,
+    val temperament: String? = null,
+    @SerialName( "wikipedia_url") val wikipediaUrl: String? = null,
+    @SerialName("reference_image_id") val imageId: String? = null,
+    val weight: Measurement? = null,
+    val height: Measurement? = null
 )
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class Measurement(
-    val imperial: String?,
-    val metric: String?
+    val imperial: String? = null,
+    val metric: String? = null
 )
 
 fun Measurement?.toDomain() = com.measton.dogapp.domain.Measurement(
@@ -40,9 +40,9 @@ fun Measurement?.toDomain() = com.measton.dogapp.domain.Measurement(
 fun BreedResponse.toDomain() = Breed(
     id = id,
     name = name,
-    breedGroup = breed_group.orEmpty(),
-    bredFor = bred_for.orEmpty(),
-    lifeSpan = life_span ?: "Unknown",
+    breedGroup = breedGroup.orEmpty(),
+    bredFor = bredFor.orEmpty(),
+    lifeSpan = lifeSpan ?: "Unknown",
     temperament = temperament.orEmpty(),
     wikipediaUrl = wikipediaUrl.orEmpty(),
     referenceImageId = imageId.orEmpty(),
