@@ -21,7 +21,7 @@ class DogViewModel (
         viewModelScope.launch {
             _uiState.value = DogImageUiState.Loading
             _uiState.value = when (val result = dogRepository.getRandomDogImage()) {
-                is ApiResult.Success -> DogImageUiState.Success(result.data.first())
+                is ApiResult.Success -> DogImageUiState.Success(result.data)
                 is ApiResult.Error -> DogImageUiState.Error
             }
         }

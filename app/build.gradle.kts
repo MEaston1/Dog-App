@@ -72,6 +72,7 @@ dependencies {
     implementation(libs.bundles.ktor)
     testRuntimeOnly(libs.junit.jupiter.engine)
     testRuntimeOnly(libs.junit.platform.launcher)
+    testImplementation(kotlin("test"))
     androidTestImplementation(libs.bundles.androidTest)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)

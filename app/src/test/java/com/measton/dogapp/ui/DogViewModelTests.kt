@@ -30,7 +30,7 @@ class DogViewModelTests {
     @Test
     fun testRandomDog() = runTest {
         val expectedDog = DogImage(emptyList(), "0XYvRd7oD", "https://cdn2.thedogapi.com/images/0XYvRd7oD.jpg")
-        whenever(dogRepository.getRandomDogImage()).thenReturn(ApiResult.Success(listOf(expectedDog)))
+        whenever(dogRepository.getRandomDogImage()).thenReturn(ApiResult.Success(expectedDog))
 
         viewModel.fetchRandomDogImage()
 

@@ -1,6 +1,7 @@
 package com.measton.dogapp.di
 
 import com.measton.dogapp.HomeRepository
+import com.measton.dogapp.network.DogApiClient
 import com.measton.dogapp.network.networkModule
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -20,7 +21,7 @@ class AppModuleTest {
     fun `network graph instantiates`() {
         val koin = koinApplication { modules(networkModule, repositoryModule) }.koin
         try {
-            assertNotNull(koin.get<TheDogApi>())
+            assertNotNull(koin.get<DogApiClient>())
             assertNotNull(koin.get<HomeRepository>())
         } finally {
             koin.close()
