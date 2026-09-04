@@ -8,8 +8,6 @@ kotlinxSerialization = "1.11.0"
 koin-android = "4.2.2"
 coil-core = "3.5.0"
 espresso = "3.7.0"
-mockito = "5.23.0"
-mockito_kotlin = "6.3.0"
 junit = "6.1.2"
 junit_ktx = "1.3.0"
 support_runner = "1.7.0"
@@ -41,8 +39,6 @@ ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref =
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
 junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit" }
-mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
-mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito_kotlin" }
 truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit" }
@@ -95,8 +91,7 @@ ktor = [
     "ktor-client-logging", "ktor-serialization-kotlinx-json", "kotlinx-serialization-json"
 ]
 test = [
-    "junit-jupiter-api", "junit-jupiter-params", "mockito-core",  "mockito-kotlin",
-    "truth", "coroutines-test"
+    "junit-jupiter-api", "junit-jupiter-params", "truth", "coroutines-test"
 ]
 androidTest = [
     "test-runner", "test-rules", "espresso-core", "espresso-web", "espresso-contrib",

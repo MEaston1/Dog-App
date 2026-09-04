@@ -7,18 +7,28 @@ import com.measton.dogapp.network.toDomain
 import kotlinx.coroutines.CancellationException
 
 
+/**
+ * The seam the ViewModels depend on. Keeping it an interface means their tests need a
+ * hand-written fake rather than a JVM-only mocking framework, so they stay portable.
+ */
+interface DogRepository {
+    suspend fun searchImages(limit: Int, breedId: String): ApiResult<List<DogImage>>
+    suspend fun getRandomDogImage(): ApiResult<DogImage>
+    suspend fun getBreedDetails(breedId: String): ApiResult<Breed>
+}
+
 class HomeRepository (
     private val api: DogApiClient
-) {
-    suspend fun searchImages(limit: Int, breedId: String): ApiResult<List<DogImage>> =
+) : DogRepository {
+    override suspend fun searchImages(limit: Int, breedId: String): ApiResult<List<DogImage>> =
         apiCall {
             api.fetchImages(limit = limit, breedId = breedId).map { it.toDomain() }
         }
 
-    suspend fun getRandomDogImage(): ApiResult<DogImage> =
+    override suspend fun getRandomDogImage(): ApiResult<DogImage> =
         apiCall { api.getRandomImage().first().toDomain() }
 
-    suspend fun getBreedDetails(breedId: String): ApiResult<Breed> =
+    override suspend fun getBreedDetails(breedId: String): ApiResult<Breed> =
         apiCall { api.getBreed(breedId = breedId).toDomain() }
 }
 

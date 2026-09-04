@@ -1,5 +1,6 @@
 package com.measton.dogapp.di
 
+import com.measton.dogapp.DogRepository
 import com.measton.dogapp.HomeRepository
 import com.measton.dogapp.network.DogApiClient
 import com.measton.dogapp.network.networkModule
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.dsl.koinApplication
 import org.koin.test.verify.verify
+import kotlin.test.assertIs
 
 @OptIn(KoinExperimentalAPI::class)
 class AppModuleTest {
@@ -22,7 +24,7 @@ class AppModuleTest {
         val koin = koinApplication { modules(networkModule, repositoryModule) }.koin
         try {
             assertNotNull(koin.get<DogApiClient>())
-            assertNotNull(koin.get<HomeRepository>())
+            assertIs<HomeRepository>(koin.get<DogRepository>())
         } finally {
             koin.close()
         }

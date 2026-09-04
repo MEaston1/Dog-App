@@ -3,7 +3,7 @@ package com.measton.dogapp.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.measton.dogapp.ApiResult
-import com.measton.dogapp.HomeRepository
+import com.measton.dogapp.DogRepository
 import com.measton.dogapp.domain.DogImage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class DogViewModel (
-    private val dogRepository: HomeRepository
+    private val dogRepository: DogRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<DogImageUiState>(DogImageUiState.Loading)
