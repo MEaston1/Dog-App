@@ -7,7 +7,7 @@ pluginManagement {
 }
 
 rootProject.name = "Dog App"
-include(":app")
+include(":composeApp")
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"

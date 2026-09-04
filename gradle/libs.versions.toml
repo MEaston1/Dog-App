@@ -19,17 +19,21 @@ kotlin = "2.4.10"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidXCore" }
 coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycle" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 coil = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil-core" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil-core" }
 coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil-core" }
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin-android" }
 koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin-android"}
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin-android"}
 koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin-android" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktor" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
@@ -80,8 +84,8 @@ lifecycle = [
 ]
 remoteImages = ["coil", "coil-compose", "coil-network-okhttp"]
 ktor = [
-    "ktor-client-core", "ktor-client-okhttp", "ktor-client-content-negotiation",
-    "ktor-client-logging", "ktor-serialization-kotlinx-json", "kotlinx-serialization-json"
+    "ktor-client-core", "ktor-client-content-negotiation", "ktor-client-logging",
+    "ktor-serialization-kotlinx-json", "kotlinx-serialization-json"
 ]
 test = [
     "coroutines-test"
@@ -92,6 +96,6 @@ androidTest = [
 ]
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
-android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
