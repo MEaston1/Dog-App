@@ -15,10 +15,4 @@ tasks{
     }
 }
 
-subprojects {
-    tasks.withType<Test> {
-        useJUnitPlatform()
-    }
-}
-
 fun String.isNonStable() = "^[0-9,.v-]+(-r)?$".toRegex().matches(this).not()

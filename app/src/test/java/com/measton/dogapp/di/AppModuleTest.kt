@@ -4,12 +4,12 @@ import com.measton.dogapp.DogRepository
 import com.measton.dogapp.HomeRepository
 import com.measton.dogapp.network.DogApiClient
 import com.measton.dogapp.network.networkModule
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.assertNotNull
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.dsl.koinApplication
 import org.koin.test.verify.verify
+import kotlin.test.Test
 import kotlin.test.assertIs
+import kotlin.test.assertNotNull
 
 @OptIn(KoinExperimentalAPI::class)
 class AppModuleTest {

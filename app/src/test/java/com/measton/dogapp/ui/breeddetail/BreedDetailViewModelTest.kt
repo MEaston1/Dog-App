@@ -1,29 +1,34 @@
 package com.measton.dogapp.ui.breeddetail
 
 import com.measton.dogapp.ApiResult
-import com.measton.dogapp.CoroutineTestExtension
 import com.measton.dogapp.FakeDogRepository
 import com.measton.dogapp.domain.Breed
 import com.measton.dogapp.domain.DogImage
 import com.measton.dogapp.domain.Measurement
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
+import kotlinx.coroutines.test.setMain
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 import kotlin.test.assertTrue
 
 @ExperimentalCoroutinesApi
-@ExtendWith(CoroutineTestExtension::class)
 class BreedDetailViewModelTest {
 
     private lateinit var viewModel: BreedDetailViewModel
     private lateinit var dogRepository: FakeDogRepository
 
-    @BeforeEach
+    // viewModelScope dispatches on Dispatchers.Main, which does not exist off-device, so
+    // every class exercising a ViewModel needs its own setMain/resetMain pair.
+    @BeforeTest
     fun setUp() {
+        Dispatchers.setMain(UnconfinedTestDispatcher())
         dogRepository = FakeDogRepository()
         viewModel = BreedDetailViewModel(dogRepository)
     }
@@ -62,6 +67,11 @@ class BreedDetailViewModelTest {
         viewModel.fetchBreedDetails("1")
 
         assertEquals(BreedDetailUiState.Error, viewModel.uiState.value)
+    }
+
+    @AfterTest
+    fun tearDown() {
+        Dispatchers.resetMain()
     }
 }
 

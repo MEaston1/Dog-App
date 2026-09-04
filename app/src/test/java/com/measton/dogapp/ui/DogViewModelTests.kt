@@ -1,28 +1,40 @@
 package com.measton.dogapp.ui
 
 import com.measton.dogapp.ApiResult
-import com.measton.dogapp.CoroutineTestExtension
 import com.measton.dogapp.FakeDogRepository
 import com.measton.dogapp.domain.DogImage
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.jupiter.api.Assertions.*
+import kotlinx.coroutines.test.setMain
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertIs
 
 @ExperimentalCoroutinesApi
-@ExtendWith(CoroutineTestExtension::class)
 class DogViewModelTests {
 
     private lateinit var viewModel: DogViewModel
     private lateinit var dogRepository: FakeDogRepository
 
-    @BeforeEach
+    // viewModelScope dispatches on Dispatchers.Main, which does not exist off-device, so
+    // every class exercising a ViewModel needs its own setMain/resetMain pair.
+    @BeforeTest
     fun setUp() {
+        Dispatchers.setMain(UnconfinedTestDispatcher())
         dogRepository = FakeDogRepository()
         viewModel = DogViewModel(dogRepository)
     }
+
+    @AfterTest
+    fun tearDown() {
+        Dispatchers.resetMain()
+    }
+
     // A successful fetch should surface a Success state holding the returned dog.
     @Test
     fun testRandomDog() = runTest {
@@ -31,10 +43,10 @@ class DogViewModelTests {
 
         viewModel.fetchRandomDogImage()
 
-        val state = viewModel.uiState.value
-        assertTrue(state is DogImageUiState.Success)
-        assertEquals(expectedDog.url, (state as DogImageUiState.Success).dog.url)
+        val state = assertIs<DogImageUiState.Success>(viewModel.uiState.value)
+        assertEquals(expectedDog.url, state.dog.url)
     }
+
     // A failed fetch should surface the Error state rather than faking a dog.
     @Test
     fun testIncorrectDogError() = runTest {
