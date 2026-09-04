@@ -3,7 +3,6 @@ package com.measton.dogapp.ui
 import com.measton.dogapp.ApiResult
 import com.measton.dogapp.CoroutineTestExtension
 import com.measton.dogapp.HomeRepository
-import com.measton.dogapp.InstantExecutorExtension
 import com.measton.dogapp.domain.DogImage
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -15,7 +14,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
-@ExtendWith(CoroutineTestExtension::class, InstantExecutorExtension::class)
+@ExtendWith(CoroutineTestExtension::class)
 class DogViewModelTests {
 
     private lateinit var viewModel: DogViewModel

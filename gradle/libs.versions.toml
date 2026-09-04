@@ -3,14 +3,12 @@ coroutines = "1.11.0"
 androidXCore = "1.19.0"
 navigation = "2.9.8"
 lifecycle = "2.11.0"
-material = "1.14.0"
 ktor = "3.5.2"
 kotlinxSerialization = "1.11.0"
 koin-android = "4.2.2"
 coil-core = "3.5.0"
 espresso = "3.7.0"
 mockito = "5.23.0"
-mockito_inline = "5.2.0"
 mockito_kotlin = "6.3.0"
 junit = "6.1.2"
 junit_ktx = "1.3.0"
@@ -19,19 +17,14 @@ truth = "1.4.5"
 compose_bom = "2026.06.01"
 composeActivity = "1.13.0"
 composeLifecycle = "2.11.0"
-constraintlayoutCompose = "1.1.2"
 androidGradlePlugin = "9.2.1"
 kotlin = "2.4.10"
 
 [libraries]
-andoidx-core = { group = "androidx.core", name = "core", version.ref = "androidXCore" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidXCore" }
 coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
-lifecycle-common-java8 = { group = "androidx.lifecycle", name = "lifecycle-common-java8", version.ref = "lifecycle" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 coil = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil-core" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil-core" }
@@ -49,7 +42,6 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
 junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit" }
 mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
-mockito-inline = { group = "org.mockito", name = "mockito-inline", version.ref = "mockito_inline" }
 mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito_kotlin" }
 truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
@@ -61,10 +53,8 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 espresso-web = { group = "androidx.test.espresso", name = "espresso-web", version.ref = "espresso" }
 espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "espresso" }
 espresso-intents = { group = "androidx.test.espresso", name = "espresso-intents", version.ref = "espresso" }
-mockito-android = { group = "org.mockito", name = "mockito-android", version.ref = "mockito" }
 test-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "support_runner" }
 junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junit_ktx" }
-okhttp3-idling-resource = { group = "com.jakewharton.espresso", name = "okhttp3-idling-resource", version = "1.0.0" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose_bom" }
 compose-animation = { group = "androidx.compose.animation", name = "animation" }
 compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
@@ -72,7 +62,6 @@ compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
-compose-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "composeActivity" }
 compose-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "composeLifecycle" }
 compose-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "composeLifecycle" }
@@ -89,18 +78,16 @@ compose-ui = [
     "compose-material-icons-extended",
     "compose-runtime",
     "compose-ui",
-    "compose-constraintlayout",
     "compose-activity",
     "compose-lifecycle-viewmodel",
     "compose-lifecycle-runtime",
     "compose-ui-tooling-preview",
 ]
 ui = [
-    "andoidx-core", "androidx-core-ktx", "coroutines", "material", "navigation-compose",
+    "androidx-core-ktx", "coroutines", "navigation-compose",
 ]
 lifecycle = [
-    "lifecycle-viewmodel-ktx", "lifecycle-livedata-ktx", "lifecycle-common-java8",
-    "lifecycle-runtime-ktx"
+    "lifecycle-viewmodel-ktx", "lifecycle-runtime-ktx"
 ]
 remoteImages = ["coil", "coil-compose", "coil-network-okhttp"]
 ktor = [
@@ -108,13 +95,12 @@ ktor = [
     "ktor-client-logging", "ktor-serialization-kotlinx-json", "kotlinx-serialization-json"
 ]
 test = [
-    "junit-jupiter-api", "junit-jupiter-params", "mockito-core", "mockito-inline", "mockito-kotlin",
+    "junit-jupiter-api", "junit-jupiter-params", "mockito-core",  "mockito-kotlin",
     "truth", "coroutines-test"
 ]
 androidTest = [
     "test-runner", "test-rules", "espresso-core", "espresso-web", "espresso-contrib",
-    "espresso-intents", "mockito-android", "test-core-ktx", "junit-ktx",
-    "truth", "okhttp3-idling-resource"
+    "espresso-intents", "test-core-ktx", "junit-ktx", "truth"
 ]
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtensionContext
 class CoroutineTestExtension : BeforeEachCallback, AfterEachCallback {
 
     private val testCoroutineDispatcher = UnconfinedTestDispatcher()
-    private val testCoroutineScope = TestScope(testCoroutineDispatcher)
 
     override fun beforeEach(context: ExtensionContext) {
         Dispatchers.setMain(testCoroutineDispatcher)
@@ -21,7 +20,4 @@ class CoroutineTestExtension : BeforeEachCallback, AfterEachCallback {
         Dispatchers.resetMain()
     }
 
-    fun runBlockingTest(block: suspend TestScope.() -> Unit) {
-        testCoroutineScope.runTest { block() }
-    }
 }
