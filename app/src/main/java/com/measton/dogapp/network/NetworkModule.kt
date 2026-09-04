@@ -1,6 +1,7 @@
 package com.measton.dogapp.network
 
 import com.measton.dogapp.BuildConfig
+import com.measton.dogapp.DOG_API_KEY
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.HttpTimeout
@@ -34,7 +35,7 @@ val networkModule = module {
 
             defaultRequest {
                 url(BASE_URL)
-                header("x-api-key", BuildConfig.DOG_API_KEY)
+                header("x-api-key", DOG_API_KEY)
             }
 
             install(HttpTimeout) {
