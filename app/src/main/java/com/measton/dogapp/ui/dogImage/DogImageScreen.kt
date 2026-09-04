@@ -38,6 +38,7 @@ import com.measton.dogapp.R
 import com.measton.dogapp.ui.DogImageUiState
 import com.measton.dogapp.ui.DogViewModel
 import com.measton.dogapp.ui.components.AnimalTabs
+import com.measton.dogapp.ui.nav.AppDestination
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -126,8 +127,9 @@ fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel 
                     val contentModifier = Modifier
                         .fillMaxSize()
                         .padding(paddingValues)
+                    val breedId = successDog.breeds.firstOrNull()?.id
                     val onDetails: () -> Unit =
-                        { navController.navigate("breed/${successDog.breeds.firstOrNull()?.id}") }
+                        { breedId?.let { navController.navigate(AppDestination.BreedDetail.route(it)) } }
                     val onFetch: () -> Unit =
                         { coroutineScope.launch { dogViewModel.fetchRandomDogImage() } }
 
@@ -139,7 +141,7 @@ fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel 
                         ) {
                             DogImageView(url = successDog.url, size = 250.dp)
                             Spacer(modifier = Modifier.width(50.dp))
-                            DogActionCard(onDetails = onDetails, onFetch = onFetch)
+                            DogActionCard(onDetails = onDetails, onFetch = onFetch, detailsEnabled = breedId != null)
                         }
                     } else {
                         Column(
@@ -149,7 +151,7 @@ fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel 
                         ) {
                             DogImageView(url = successDog.url, size = 300.dp)
                             Spacer(modifier = Modifier.height(100.dp))
-                            DogActionCard(onDetails = onDetails, onFetch = onFetch)
+                            DogActionCard(onDetails = onDetails, onFetch = onFetch, detailsEnabled = breedId != null)
                         }
                     }
                 }
@@ -175,6 +177,7 @@ private fun DogImageView(url: String, size: Dp) {
 private fun DogActionCard(
     onDetails: () -> Unit,
     onFetch: () -> Unit,
+    detailsEnabled: Boolean = true,
 ) {
     Card(
         shape = MaterialTheme.shapes.medium,
@@ -191,6 +194,7 @@ private fun DogActionCard(
                     .size(250.dp, 50.dp),
                 shape = MaterialTheme.shapes.small,
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                enabled = detailsEnabled,
                 onClick = onDetails
             ) {
                 Text(

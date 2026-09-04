@@ -11,15 +11,15 @@ import com.measton.dogapp.ui.dogImage.DogImageScreen
 
 @Composable
 fun NavGraph(navController: NavHostController, onBreedViewed: (String?) -> Unit) {
-    NavHost(navController, startDestination = "home") {
-        composable("Home") {
+    NavHost(navController, startDestination = AppDestination.Home.route) {
+        composable(route = AppDestination.Home.route) {
             DogImageScreen(navController = navController, onBreedViewed = onBreedViewed)
         }
-        composable("Favourites") {
+        composable(route = AppDestination.Favourites.route) {
             //FavouritesScreen(navController = navController)
         }
         composable(
-            route = "Breed/{breedId}",
+            route = AppDestination.BreedDetail.route,
             arguments = listOf(navArgument("breedId") { type = NavType.StringType })
         ) { backStackEntry ->
             val breedId = backStackEntry.arguments?.getString("breedId") ?: ""

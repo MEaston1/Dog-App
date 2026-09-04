@@ -4,15 +4,10 @@ androidXCore = "1.19.0"
 navigation = "2.9.8"
 lifecycle = "2.11.0"
 material = "1.14.0"
-retrofit-core = "3.0.0"
-okHttp-core = "5.4.0"
-okHttp-logging = "5.4.0"
-moshi = "1.15.2"
 ktor = "3.5.2"
 kotlinxSerialization = "1.11.0"
 koin-android = "4.2.2"
 coil-core = "3.5.0"
-coil-svg = "3.5.0"
 espresso = "3.7.0"
 mockito = "5.23.0"
 mockito_inline = "5.2.0"
@@ -39,15 +34,8 @@ lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-lived
 lifecycle-common-java8 = { group = "androidx.lifecycle", name = "lifecycle-common-java8", version.ref = "lifecycle" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 coil = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil-core" }
-coil-svg = { group = "io.coil-kt.coil3", name = "coil-svg", version.ref = "coil-svg" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil-core" }
 coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil-core" }
-okHttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHttp-core" }
-okHttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttp-logging" }
-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit-core" }
-retrofit-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit-core" }
-moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", version.ref = "moshi" }
-moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
 koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin-android"}
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin-android"}
 koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin-android" }
@@ -76,7 +64,6 @@ espresso-intents = { group = "androidx.test.espresso", name = "espresso-intents"
 mockito-android = { group = "org.mockito", name = "mockito-android", version.ref = "mockito" }
 test-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "support_runner" }
 junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junit_ktx" }
-mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "okHttp-core" }
 okhttp3-idling-resource = { group = "com.jakewharton.espresso", name = "okhttp3-idling-resource", version = "1.0.0" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose_bom" }
 compose-animation = { group = "androidx.compose.animation", name = "animation" }
@@ -115,10 +102,7 @@ lifecycle = [
     "lifecycle-viewmodel-ktx", "lifecycle-livedata-ktx", "lifecycle-common-java8",
     "lifecycle-runtime-ktx"
 ]
-remoteImages = ["coil", "coil-svg", "coil-compose", "coil-network-okhttp"]
-network = [
-    "okHttp", "okHttp-logging", "retrofit", "retrofit-moshi", "moshi-adapters"
-]
+remoteImages = ["coil", "coil-compose", "coil-network-okhttp"]
 ktor = [
     "ktor-client-core", "ktor-client-okhttp", "ktor-client-content-negotiation",
     "ktor-client-logging", "ktor-serialization-kotlinx-json", "kotlinx-serialization-json"
@@ -130,11 +114,10 @@ test = [
 androidTest = [
     "test-runner", "test-rules", "espresso-core", "espresso-web", "espresso-contrib",
     "espresso-intents", "mockito-android", "test-core-ktx", "junit-ktx",
-    "truth", "mockwebserver", "okhttp3-idling-resource"
+    "truth", "okhttp3-idling-resource"
 ]
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version = "2.3.10" }

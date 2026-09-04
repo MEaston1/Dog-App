@@ -37,7 +37,7 @@ fun BottomNavigation(navController: NavHostController, currentBreedId: String?) 
                 onClick = {
                     if(item == AppDestination.BreedDetail) {
                         if(currentBreedId != null){
-                            navController.navigate("breed/$currentBreedId") {
+                            navController.navigate(AppDestination.BreedDetail.route(currentBreedId)) {
                                 popUpTo(navController.graph.startDestinationId) {
                                     saveState = true
                                 }

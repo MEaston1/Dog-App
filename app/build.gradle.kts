@@ -67,7 +67,6 @@ dependencies {
     implementation(libs.bundles.ui)
     implementation(libs.bundles.lifecycle)
     implementation(libs.bundles.remoteImages)
-    implementation(libs.bundles.network)
     testImplementation(libs.bundles.test)
     implementation(libs.bundles.ktor)
     testRuntimeOnly(libs.junit.jupiter.engine)

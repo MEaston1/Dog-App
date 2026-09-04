@@ -15,5 +15,7 @@ sealed class AppDestination(
 ) {
     object Favourites: AppDestination("Favourites", R.drawable.cat_paw, R.string.favourites_tab)
     object Home: AppDestination("Home", R.drawable.dog_bone, R.string.home_tab)
-    object BreedDetail: AppDestination("Breed/{breedId}", null, R.string.details_tab, imageVector = Icons.Filled.Info,)
+    object BreedDetail: AppDestination("Breed/{breedId}", null, R.string.details_tab, imageVector = Icons.Filled.Info,) {
+        fun route(breedId: String) = "Breed/$breedId"
+    }
 }
