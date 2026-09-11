@@ -81,6 +81,7 @@ kotlin {
                 implementation(libs.bundles.ktor)
                 implementation(libs.koin.core)
                 implementation(libs.lifecycle.viewmodel)
+                implementation(libs.koin.core.viewmodel)
             }
         }
 

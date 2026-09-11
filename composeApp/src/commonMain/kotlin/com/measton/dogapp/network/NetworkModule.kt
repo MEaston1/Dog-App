@@ -1,9 +1,8 @@
 package com.measton.dogapp.network
 
-import com.measton.dogapp.BuildConfig
 import com.measton.dogapp.DOG_API_KEY
+import com.measton.dogapp.isDebugBuild
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
@@ -22,14 +21,14 @@ val networkModule = module {
 
 
     single {
-        HttpClient(OkHttp) {
+        HttpClient {
             expectSuccess = true
 
             install(ContentNegotiation) {
                 json(Json { ignoreUnknownKeys = true })
             }
 
-            if(BuildConfig.DEBUG){
+            if(isDebugBuild){
                 install(Logging) { level = LogLevel.BODY}
             }
 
