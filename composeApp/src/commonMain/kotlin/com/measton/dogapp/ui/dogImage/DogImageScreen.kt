@@ -1,8 +1,6 @@
 package com.measton.dogapp.ui.dogImage
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Row
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -26,25 +24,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import coil3.compose.rememberAsyncImagePainter
+import coil3.compose.AsyncImage
 import com.measton.dogapp.ui.components.FavouriteFAB
 import kotlinx.coroutines.launch
-import com.measton.dogapp.R
+import com.measton.dogapp.resources.Res
+import com.measton.dogapp.resources.errordog
+import com.measton.dogapp.resources.fetch_pet
+import com.measton.dogapp.resources.info_failed_to_load
+import com.measton.dogapp.resources.pet_details
 import com.measton.dogapp.ui.DogImageUiState
 import com.measton.dogapp.ui.DogViewModel
 import com.measton.dogapp.ui.components.AnimalTabs
-import com.measton.dogapp.ui.nav.AppDestination
-import org.koin.androidx.compose.koinViewModel
+import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel = koinViewModel(), onBreedViewed: (String?) -> Unit) {
-    val configuration = LocalConfiguration.current
-    val orientation = configuration.orientation
+fun DogImageScreen(
+    dogViewModel: DogViewModel = koinViewModel(),
+    onBreedViewed: (String?) -> Unit,
+    onNavigateToDetails: (String) -> Unit,
+) {
     val uiState = dogViewModel.uiState.collectAsState().value
     val coroutineScope = rememberCoroutineScope()
     val hasInitialFetch = remember { mutableStateOf(false) }
@@ -94,7 +96,7 @@ fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel 
                     verticalArrangement = Arrangement.Center
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.errordog),
+                        painter = painterResource(Res.drawable.errordog),
                         contentDescription = null,
                         modifier = Modifier
                             .size(300.dp)
@@ -103,7 +105,7 @@ fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel 
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = stringResource(id = R.string.info_failed_to_load),
+                        text = stringResource(Res.string.info_failed_to_load),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.primary
                     )
@@ -115,7 +117,7 @@ fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel 
                         modifier = Modifier.testTag("fetchDogButton")
                     ) {
                         Text(
-                            text = stringResource(id = R.string.fetch_pet),
+                            text = stringResource(Res.string.fetch_pet),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSecondary
                         )
@@ -129,29 +131,31 @@ fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel 
                         .padding(paddingValues)
                     val breedId = successDog.breeds.firstOrNull()?.id
                     val onDetails: () -> Unit =
-                        { breedId?.let { navController.navigate(AppDestination.BreedDetail.route(it)) } }
+                        { breedId?.let { onNavigateToDetails(it) } }
                     val onFetch: () -> Unit =
                         { coroutineScope.launch { dogViewModel.fetchRandomDogImage() } }
 
-                    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                        Row(
-                            modifier = contentModifier,
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            DogImageView(url = successDog.url, size = 250.dp)
-                            Spacer(modifier = Modifier.width(50.dp))
-                            DogActionCard(onDetails = onDetails, onFetch = onFetch, detailsEnabled = breedId != null)
-                        }
-                    } else {
-                        Column(
-                            modifier = contentModifier,
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            DogImageView(url = successDog.url, size = 300.dp)
-                            Spacer(modifier = Modifier.height(100.dp))
-                            DogActionCard(onDetails = onDetails, onFetch = onFetch, detailsEnabled = breedId != null)
+                    BoxWithConstraints(modifier = contentModifier) {
+                        if (maxWidth > maxHeight) {
+                            Row(
+                                modifier = Modifier.fillMaxSize(),
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                DogImageView(url = successDog.url, size = 250.dp)
+                                Spacer(modifier = Modifier.width(50.dp))
+                                DogActionCard(onDetails = onDetails, onFetch = onFetch, detailsEnabled = breedId != null)
+                            }
+                        } else {
+                            Column(
+                                modifier = Modifier.fillMaxSize(),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                DogImageView(url = successDog.url, size = 300.dp)
+                                Spacer(modifier = Modifier.height(100.dp))
+                                DogActionCard(onDetails = onDetails, onFetch = onFetch, detailsEnabled = breedId != null)
+                            }
                         }
                     }
                 }
@@ -162,8 +166,8 @@ fun DogImageScreen(navController: NavHostController, dogViewModel: DogViewModel 
 
 @Composable
 private fun DogImageView(url: String, size: Dp) {
-    Image(
-        painter = rememberAsyncImagePainter(url),
+    AsyncImage(
+        model = url,
         contentDescription = null,
         modifier = Modifier
             .size(size)
@@ -198,7 +202,7 @@ private fun DogActionCard(
                 onClick = onDetails
             ) {
                 Text(
-                    text = stringResource(id = R.string.pet_details),
+                    text = stringResource(Res.string.pet_details),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
@@ -211,7 +215,7 @@ private fun DogActionCard(
                 modifier = Modifier.testTag("fetchDogButton")
             ) {
                 Text(
-                    text = stringResource(id = R.string.fetch_pet),
+                    text = stringResource(Res.string.fetch_pet),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSecondary
                 )

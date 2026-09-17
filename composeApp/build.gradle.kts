@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -82,6 +83,23 @@ kotlin {
                 implementation(libs.koin.core)
                 implementation(libs.lifecycle.viewmodel)
                 implementation(libs.koin.core.viewmodel)
+
+                // Compose Multiplatform - shared UI (theme, screens, components) lives here.
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material3)
+                implementation(compose.materialIconsExtended)
+                implementation(compose.ui)
+                implementation(compose.components.resources)
+                implementation(compose.components.uiToolingPreview)
+                implementation(libs.compose.material3.windowsizeclass)
+
+                // Multiplatform Koin-Compose integration (replaces koin-androidx-compose).
+                implementation(libs.koin.compose)
+                implementation(libs.koin.compose.viewmodel)
+
+                // Coil 3 image loading with a Ktor-backed network fetcher (per-platform engine).
+                implementation(libs.bundles.remoteImages)
             }
         }
 
@@ -102,7 +120,6 @@ kotlin {
                 implementation(libs.bundles.compose.ui)
                 implementation(libs.bundles.ui)
                 implementation(libs.bundles.lifecycle)
-                implementation(libs.bundles.remoteImages)
             }
         }
 
@@ -125,6 +142,10 @@ kotlin {
             }
         }
     }
+}
+
+compose.resources {
+    packageOfResClass = "com.measton.dogapp.resources"
 }
 
 android {

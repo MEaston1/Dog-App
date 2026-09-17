@@ -4,13 +4,16 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.measton.dogapp.R
+import com.measton.dogapp.resources.Res
+import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.resources.vectorResource
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
+import com.measton.dogapp.resources.cat_paw
+import com.measton.dogapp.resources.cat_tab
+import com.measton.dogapp.resources.dog_bone
+import com.measton.dogapp.resources.dog_tab
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun AnimalTabs(
@@ -21,11 +24,11 @@ fun AnimalTabs(
         Tab(
             selected = selectedTabIndex == 0,
             onClick = { onTabSelected(0) },
-            text = { Text(stringResource(R.string.dog_tab)) },
+            text = { Text(stringResource(Res.string.dog_tab)) },
             icon = {
                 Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.dog_bone),
-                    contentDescription = stringResource(R.string.dog_tab)
+                    imageVector = vectorResource(Res.drawable.dog_bone),
+                    contentDescription = stringResource(Res.string.dog_tab)
                 )
             }
         )
@@ -33,11 +36,11 @@ fun AnimalTabs(
         Tab(
             selected = selectedTabIndex == 1,
             onClick = { onTabSelected(1) },
-            text = { Text(stringResource(R.string.cat_tab)) },
+            text = { Text(stringResource(Res.string.cat_tab)) },
             icon = {
                 Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.cat_paw),
-                    contentDescription = stringResource(R.string.cat_tab)
+                    imageVector = vectorResource(Res.drawable.cat_paw),
+                    contentDescription = stringResource(Res.string.cat_tab)
                 )
             }
         )

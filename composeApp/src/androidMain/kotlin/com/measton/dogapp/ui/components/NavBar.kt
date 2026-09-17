@@ -8,9 +8,9 @@ import androidx.compose.runtime.Composable
 import com.measton.dogapp.ui.nav.AppDestination
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun BottomNavigation(navController: NavHostController, currentBreedId: String?) {
@@ -32,7 +32,7 @@ fun BottomNavigation(navController: NavHostController, currentBreedId: String?) 
                         Icon(painter = painterResource(id = item.iconResId!!), contentDescription = null)
                     }
                 },
-                label = { Text(stringResource(id = item.titleResId)) },
+                label = { Text(stringResource(item.titleResId)) },
                 selected = currentRoute == item.route,
                 onClick = {
                     if(item == AppDestination.BreedDetail) {

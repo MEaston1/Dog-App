@@ -15,6 +15,10 @@ composeActivity = "1.13.0"
 composeLifecycle = "2.11.0"
 androidGradlePlugin = "9.2.1"
 kotlin = "2.4.10"
+# Compose Multiplatform Gradle plugin + org.jetbrains.compose.* libraries used from commonMain.
+composeMultiplatform = "1.12.0"
+# Alpha-only artifact as of Sept 2026; BoxWithConstraints is the fallback per OVERHAUL_PLAN Phase 6.
+materialWindowSizeClass = "1.13.0-alpha01"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidXCore" }
@@ -26,10 +30,12 @@ lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-view
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 coil = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil-core" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil-core" }
-coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil-core" }
+coil-network-ktor3 = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "coil-core" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin-android" }
 koin-core-viewmodel = { group = "io.insert-koin", name = "koin-core-viewmodel", version.ref = "koin-android" }
 koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin-android"}
+koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin-android" }
+koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin-android" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin-android"}
 koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin-android" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
@@ -63,6 +69,7 @@ compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 compose-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+compose-material3-windowsizeclass = { group = "org.jetbrains.compose.material3", name = "material3-window-size-class", version.ref = "materialWindowSizeClass" }
 
 [bundles]
 compose-ui = [
@@ -83,7 +90,7 @@ ui = [
 lifecycle = [
     "lifecycle-viewmodel-ktx", "lifecycle-runtime-ktx"
 ]
-remoteImages = ["coil", "coil-compose", "coil-network-okhttp"]
+remoteImages = ["coil", "coil-compose", "coil-network-ktor3"]
 ktor = [
     "ktor-client-core", "ktor-client-content-negotiation", "ktor-client-logging",
     "ktor-serialization-kotlinx-json", "kotlinx-serialization-json"
@@ -99,4 +106,5 @@ androidTest = [
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
