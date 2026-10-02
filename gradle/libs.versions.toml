@@ -1,6 +1,5 @@
 [versions]
 coroutines = "1.11.0"
-androidXCore = "1.19.0"
 navigation = "2.9.8"
 lifecycle = "2.11.0"
 ktor = "3.5.2"
@@ -12,28 +11,21 @@ junit_ktx = "1.3.0"
 support_runner = "1.7.0"
 compose_bom = "2026.06.01"
 composeActivity = "1.13.0"
-composeLifecycle = "2.11.0"
 androidGradlePlugin = "9.2.1"
 kotlin = "2.4.10"
 # Compose Multiplatform Gradle plugin + org.jetbrains.compose.* libraries used from commonMain.
 composeMultiplatform = "1.12.0"
-# Alpha-only artifact as of Sept 2026; BoxWithConstraints is the fallback per OVERHAUL_PLAN Phase 6.
-materialWindowSizeClass = "1.13.0-alpha01"
 
 [libraries]
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidXCore" }
 coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycle" }
-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 coil = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil-core" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil-core" }
 coil-network-ktor3 = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "coil-core" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin-android" }
 koin-core-viewmodel = { group = "io.insert-koin", name = "koin-core-viewmodel", version.ref = "koin-android" }
-koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin-android"}
 koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin-android" }
 koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin-android" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin-android"}
@@ -56,40 +48,14 @@ espresso-intents = { group = "androidx.test.espresso", name = "espresso-intents"
 test-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "support_runner" }
 junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junit_ktx" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose_bom" }
-compose-animation = { group = "androidx.compose.animation", name = "animation" }
 compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 compose-material3 = { group = "androidx.compose.material3", name = "material3" }
-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "composeActivity" }
-compose-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "composeLifecycle" }
-compose-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "composeLifecycle" }
-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 compose-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
-compose-material3-windowsizeclass = { group = "org.jetbrains.compose.material3", name = "material3-window-size-class", version.ref = "materialWindowSizeClass" }
 
 [bundles]
-compose-ui = [
-    "compose-animation",
-    "compose-foundation",
-    "compose-material3",
-    "compose-material-icons-extended",
-    "compose-runtime",
-    "compose-ui",
-    "compose-activity",
-    "compose-lifecycle-viewmodel",
-    "compose-lifecycle-runtime",
-    "compose-ui-tooling-preview",
-]
-ui = [
-    "androidx-core-ktx", "coroutines", "navigation-compose",
-]
-lifecycle = [
-    "lifecycle-viewmodel-ktx", "lifecycle-runtime-ktx"
-]
 remoteImages = ["coil", "coil-compose", "coil-network-ktor3"]
 ktor = [
     "ktor-client-core", "ktor-client-content-negotiation", "ktor-client-logging",
@@ -104,6 +70,7 @@ androidTest = [
 ]
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "androidGradlePlugin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }

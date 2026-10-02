@@ -1,7 +1,6 @@
 package com.measton.dogapp.network
 
 import com.measton.dogapp.DOG_API_KEY
-import com.measton.dogapp.isDebugBuild
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -17,10 +16,18 @@ import org.koin.dsl.module
 
 private const val BASE_URL = "https://api.thedogapi.com/v1/"
 
+/**
+ * Koin property each platform's startKoin sets to say whether this is a debug build. Only the
+ * application module knows that (a KMP library has no build types), so it is passed in rather
+ * than read through expect/actual. Defaults to false when unset.
+ */
+const val DEBUG_BUILD_PROPERTY = "isDebugBuild"
+
 val networkModule = module {
 
 
     single {
+        val isDebugBuild = getProperty(DEBUG_BUILD_PROPERTY, false)
         HttpClient {
             expectSuccess = true
 

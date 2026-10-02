@@ -7,9 +7,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import com.measton.dogapp.ui.nav.AppDestination
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -29,7 +29,7 @@ fun BottomNavigation(navController: NavHostController, currentBreedId: String?) 
                     if (item.imageVector != null) {
                         Icon(imageVector = item.imageVector, contentDescription = null)
                     } else {
-                        Icon(painter = painterResource(id = item.iconResId!!), contentDescription = null)
+                        Icon(painter = painterResource(item.iconRes!!), contentDescription = null)
                     }
                 },
                 label = { Text(stringResource(item.titleResId)) },

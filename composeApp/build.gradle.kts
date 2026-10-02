@@ -1,9 +1,8 @@
 import java.util.Properties
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.kotlin.serialization)
@@ -56,10 +55,18 @@ val generateApiKey = tasks.register<GenerateApiKey>("generateApiKey") {
 kotlin {
     jvmToolchain(17)
 
-    androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
+    android {
+        // Must differ from :androidApp's namespace, which owns com.measton.dogapp.
+        namespace = "com.measton.dogapp.shared"
+        compileSdk = 37
+        minSdk = 24
+
+        // Off by default in a KMP library; Compose Multiplatform resources need it on Android.
+        androidResources {
+            enable = true
         }
+
+        withHostTest {}
     }
 
     // Declared so commonMain is checked against a non-JVM target. These cannot be built on
@@ -92,7 +99,6 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.components.resources)
                 implementation(compose.components.uiToolingPreview)
-                implementation(libs.compose.material3.windowsizeclass)
 
                 // Multiplatform Koin-Compose integration (replaces koin-androidx-compose).
                 implementation(libs.koin.compose)
@@ -114,25 +120,17 @@ kotlin {
         androidMain {
             dependencies {
                 implementation(libs.ktor.client.okhttp)
-                implementation(libs.koin.android)
-                implementation(libs.koin.androidx.compose)
-                implementation(project.dependencies.platform(libs.compose.bom))
-                implementation(libs.bundles.compose.ui)
-                implementation(libs.bundles.ui)
-                implementation(libs.bundles.lifecycle)
+                // Supplies Dispatchers.Main, which viewModelScope runs on.
+                implementation(libs.coroutines)
+                // api: :androidApp's MainActivity creates the NavController it passes to
+                // NavGraph/BottomNavigation. Goes away with Navigation 3 (Phase 7).
+                api(libs.navigation.compose)
             }
         }
 
-        androidUnitTest {
+        getByName("androidHostTest") {
             dependencies {
                 implementation(libs.koin.test)
-            }
-        }
-
-        androidInstrumentedTest {
-            dependencies {
-                implementation(libs.bundles.androidTest)
-                implementation(libs.compose.junit4)
             }
         }
 
@@ -148,42 +146,7 @@ compose.resources {
     packageOfResClass = "com.measton.dogapp.resources"
 }
 
-android {
-    namespace = "com.measton.dogapp"
-    compileSdk = 37
-
-    defaultConfig {
-        applicationId = "com.measton.dogapp"
-        minSdk = 24
-        targetSdk = 37
-        versionCode = 1
-        versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildFeatures {
-        compose = true
-        buildConfig = true
-    }
-
-    buildTypes {
-        named("release") {
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-}
-
 dependencies {
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(libs.compose.manifest)
+    // A KMP library has no debug variant, so preview tooling goes on the Android runtime classpath.
+    "androidRuntimeClasspath"(compose.uiTooling)
 }
